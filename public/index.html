@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Trello Power-Up</title>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+    <h1>Welcome to My Trello Power-Up</h1>
+    <p>Click the button below to authorize.</p>
+    <button id="authorize-btn">Authorize</button>
+
+    <script>
+        var t = window.TrelloPowerUp.iframe();
+        
+        document.getElementById("authorize-btn").addEventListener("click", function () {
+            t.popup({
+                title: "Authorize",
+                url: "./auth.html",  // File xử lý xác thực (có thể thêm sau)
+            });
+        });
+    </script>
+</body>
+</html>
