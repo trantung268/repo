@@ -8,8 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const API_KEY = "YOUR_TRELLO_API_KEY";
-const TOKEN = "YOUR_TRELLO_API_TOKEN";
+const API_KEY = "3eb15437bed89d6ea2f9155cfdf684a8";
+const TOKEN = "ATTA2bc1f4314f7b179d027e1513c27294e30d90fda0153a049f1ca488c513d8773307414528";
 
 // Endpoint xử lý khi người dùng thêm link vào thẻ
 app.get("/getCardInfo", async (req, res) => {
