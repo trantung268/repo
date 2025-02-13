@@ -1,0 +1,11 @@
+{
+  "capabilities": ["board-buttons"],
+  "icon": "https://i.imgur.com/Qq6RV99.jpeg",
+  "author": "Trần Thanh Tùng",
+  "name": "My First Custom Power-Up",
+  "description": "A simple Trello Power-Up to test capabilities",
+  "homepage": "https://test268.vercel.app/",
+  "permissions": {
+    "board": "read"
+  }
+}
