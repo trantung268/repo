@@ -1,21 +1,38 @@
-const express = require("express");
-const app = express();
+const TrelloPowerUp = require("trello-power-up");
 
-// Cấu hình JSON cho Trello Power-Up
-app.get("/power-up.json", (req, res) => {
-    res.json({
-        "capabilities": ["board-buttons"],
-        "icon": "https://i.imgur.com/Qq6RV99.jpeg",
-        "author": "Trần Thanh Tùng",
-        "name": "My First Custom Power-Up",
-        "description": "A simple Trello Power-Up to test capabilities",
-        "homepage": "https://test268.vercel.app/",
-        "permissions": {
-            "board": "read"
-        }
-    });
+const express = require("express");
+const cors = require("cors");
+const axios = require("axios");
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const API_KEY = "YOUR_TRELLO_API_KEY";
+const TOKEN = "YOUR_TRELLO_API_TOKEN";
+
+// Endpoint xử lý khi người dùng thêm link vào thẻ
+app.get("/getCardInfo", async (req, res) => {
+  const { cardUrl } = req.query;
+
+  try {
+    const cardId = cardUrl.split("/").pop(); // Lấy ID từ URL
+    const response = await axios.get(
+      `https://api.trello.com/1/cards/${cardId}?fields=name,labels,idMembers,badges&attachments=true&key=${API_KEY}&token=${TOKEN}`
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: "Không lấy được thông tin thẻ." });
+  }
 });
 
-// Lắng nghe cổng 3000
+// Endpoint xử lý Trello Power-Up
+app.get("/", (req, res) => {
+  res.send("Trello Power-Up Running");
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
