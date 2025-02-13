@@ -10,5 +10,9 @@
   "author": "Trần Thanh Tùng",
   "icon": "https://i.imgur.com/QqR9V99.jpeg",
   "iframeConnectorUrl": "https://test268.vercel.app/public/index.html",
-  "permissions": ["read", "write"]
+  "permissions": ["read", "write"],
+  "privacyPolicyUrl": "https://yourwebsite.com/privacy-policy",
+  "dataPrivacyPractices": {
+    "type": "not_personal"
+  }
 }
