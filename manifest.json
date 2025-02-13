@@ -1,0 +1,8 @@
+{
+  "capabilities": ["attachment-sections"],
+  "name": "Card Preview Power-Up",
+  "description": "Hiển thị thông tin thẻ Trello khi gắn link.",
+  "author": "Trần Thanh Tùng",
+  "icon": "https://i.imgur.com/Qq6RV99.jpeg",
+  "iframeConnectorUrl": "https://test268.vercel.app"
+}
