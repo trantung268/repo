@@ -59,13 +59,15 @@ app.listen(PORT, () => {
 
 // Khởi tạo Trello Power-Up với show-settings và authorization-status
 window.TrelloPowerUp.initialize({
-  'show-settings': function(t, options){
+  'show-settings': function(t, options) {
+    console.log("Mở cài đặt Power-Up...");
     return t.popup({
       title: "Cài đặt Power-Up",
-      url: "https://test268.vercel.app/index.html",
+      url: t.signUrl("https://test268.vercel.app/public/settings.html"), // 🔥 Thêm t.signUrl
       height: 184
     });
-  },
+  }
+});
 
   'authorization-status': function(t, options){
     return t.get('member', 'private', 'authToken')
