@@ -1,5 +1,4 @@
 const TrelloPowerUp = require("trello-power-up");
-
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
@@ -27,6 +26,27 @@ app.get("/getCardInfo", async (req, res) => {
   }
 });
 
+// Endpoint kiểm tra trạng thái xác thực với Trello API
+app.get("/authorization-status", async (req, res) => {
+  const { token } = req.query;
+
+  if (!token) {
+    return res.json({ authorized: false });
+  }
+
+  try {
+    const response = await axios.get(
+      `https://api.trello.com/1/members/me?key=${API_KEY}&token=${token}`
+    );
+
+    if (response.data && response.data.id) {
+      return res.json({ authorized: true });
+    }
+  } catch (error) {
+    return res.json({ authorized: false });
+  }
+});
+
 // Endpoint xử lý Trello Power-Up
 app.get("/", (req, res) => {
   res.send("Trello Power-Up Running");
@@ -36,6 +56,8 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Khởi tạo Trello Power-Up với show-settings và authorization-status
 window.TrelloPowerUp.initialize({
   'show-settings': function(t, options){
     return t.popup({
@@ -43,5 +65,18 @@ window.TrelloPowerUp.initialize({
       url: "https://test268.vercel.app/index.html",
       height: 184
     });
+  },
+
+  'authorization-status': function(t, options){
+    return t.get('member', 'private', 'authToken')
+      .then(function(token){
+        if (!token) {
+          return { authorized: false };
+        }
+        return fetch(`https://test268.vercel.app/authorization-status?token=${token}`)
+          .then(res => res.json())
+          .then(data => ({ authorized: data.authorized }))
+          .catch(() => ({ authorized: false }));
+      });
   }
 });
