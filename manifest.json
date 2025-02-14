@@ -3,13 +3,15 @@
     "attachment-sections",
     "board-buttons",
     "card-buttons",
-    "card-back-section"
+    "card-back-section",
+    "show-settings",
+    "authorization-status"
   ],
   "name": "Card Preview Power-Up",
   "description": "Hiển thị thông tin thẻ Trello khi gắn link.",
   "author": "Trần Thanh Tùng",
   "icon": "https://i.imgur.com/QqR9V99.jpeg",
-  "iframeConnectorUrl": "https://test268.vercel.app/index.html",
+  "iframeConnectorUrl": "https://test268.vercel.app/public/index.html",
   "permissions": ["read", "write"],
   "privacyPolicyUrl": "https://yourwebsite.com/privacy-policy",
   "dataPrivacyPractices": {
