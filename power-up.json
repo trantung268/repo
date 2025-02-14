@@ -7,5 +7,13 @@
   "homepage": "https://test268.vercel.app/",
   "permissions": {
     "board": "read"
+  },
+  "api": {
+    "authorization": {
+      "oauthVersion": 1,
+      "requestTokenURL": "https://trello.com/1/OAuthGetRequestToken",
+      "accessTokenURL": "https://trello.com/1/OAuthGetAccessToken",
+      "authorizeURL": "https://trello.com/1/OAuthAuthorizeToken?scope=read,write"
+    }
   }
 }
