@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorize Trello</title>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+    <h1>Authorize Trello Access</h1>
+    <p>Click the button below to authorize this Power-Up with Trello.</p>
+    <button id="authorize-btn">Authorize with Trello</button>
+    
+    <script>
+        var t = window.TrelloPowerUp.iframe();
+        const API_KEY = "3eb15437bed89d6ea2f9155cfdf684a8"; // Thay bằng API Key của bạn
+        
+        document.getElementById("authorize-btn").addEventListener("click", function() {
+            var authUrl = `https://trello.com/1/authorize?expiration=never&name=TrelloPowerUp&scope=read,write&response_type=token&key=${API_KEY}`;
+            
+            window.open(authUrl, "_blank");
+        });
+    </script>
+</body>
+</html>
