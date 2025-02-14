@@ -1,3 +1,4 @@
+require("dotenv").config();
 const TrelloPowerUp = require("trello-power-up");
 const express = require("express");
 const cors = require("cors");
@@ -7,19 +8,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const API_KEY = "3eb15437bed89d6ea2f9155cfdf684a8";
-const TOKEN = "ATTA2bc1f4314f7b179d027e1513c27294e30d90fda0153a049f1ca488c513d8773307414528";
+const API_KEY = process.env.TRELLO_API_KEY;
+const TOKEN = process.env.TRELLO_API_TOKEN;
 
 // Endpoint xử lý khi người dùng thêm link vào thẻ
 app.get("/getCardInfo", async (req, res) => {
   const { cardUrl } = req.query;
 
+  if (!cardUrl) {
+    return res.status(400).json({ error: "Thiếu cardUrl" });
+  }
+
+  const cardId = cardUrl.split("/").pop();
+  if (!cardId) {
+    return res.status(400).json({ error: "URL không hợp lệ" });
+  }
+
   try {
-    const cardId = cardUrl.split("/").pop(); // Lấy ID từ URL
     const response = await axios.get(
       `https://api.trello.com/1/cards/${cardId}?fields=name,labels,idMembers,badges&attachments=true&key=${API_KEY}&token=${TOKEN}`
     );
-
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: "Không lấy được thông tin thẻ." });
@@ -55,27 +63,4 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
-
-window.TrelloPowerUp.initialize({
-  'authorization-status': function (t, options) {
-    return t.get('member', 'private', 'token').then((token) => {
-      if (token) {
-        return { authorized: true };
-      } else {
-        return { authorized: false };
-      }
-    });
-  },
-  'show-settings': function (t) {
-    console.log("Opening Power-Up settings");
-    return t.popup({
-      title: "Cài đặt Power-Up",
-      url: "https://test268.vercel.app/index.html",
-      height: 184
-    });
-  }
-}, {
-  appKey: "3eb15437bed89d6ea2f9155cfdf684a8", 
-  oauthSecret: "8750d2e257fb42fbcfdd4a27709a45705fac0987316e78c36b2b33b4d63e4aa5"
 });
