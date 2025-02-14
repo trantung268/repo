@@ -12,12 +12,29 @@
     <button id="authorize-btn">Authorize</button>
 
     <script>
-        var t = window.TrelloPowerUp.iframe();
-        
+        var t = window.TrelloPowerUp.initialize({
+            'authorization-status': function (t, options) {
+                return t.get('member', 'private', 'token').then((token) => {
+                    if (token) {
+                        return { authorized: true };
+                    } else {
+                        return { authorized: false };
+                    }
+                });
+            },
+            'show-settings': function (t) {
+                return t.popup({
+                    title: "Settings",
+                    url: "./settings.html", 
+                    height: 184
+                });
+            }
+        });
+
         document.getElementById("authorize-btn").addEventListener("click", function () {
             t.popup({
                 title: "Authorize",
-                url: "./auth.html",  // File xử lý xác thực (có thể thêm sau)
+                url: "./auth.html",  // File này cần phải được tạo riêng
             });
         });
     </script>
