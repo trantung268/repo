@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Power-Up Settings</title>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            background-color: #0079BF;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #005A8D;
+        }
+    </style>
 </head>
 <body>
     <h2>Power-Up Settings</h2>
     <p>Đây là trang cài đặt của Power-Up.</p>
+    <button id="close-btn">Đóng</button>
+
+    <script>
+        var t = window.TrelloPowerUp.iframe();
+
+        document.getElementById("close-btn").addEventListener("click", function() {
+            t.closePopup(); // Đóng popup cài đặt
+        });
+    </script>
 </body>
 </html>
