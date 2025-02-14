@@ -57,28 +57,25 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// Khởi tạo Trello Power-Up với show-settings và authorization-status
 window.TrelloPowerUp.initialize({
-  'show-settings': function(t, options) {
-    console.log("Mở cài đặt Power-Up...");
+  'authorization-status': function (t, options) {
+    return t.get('member', 'private', 'token').then((token) => {
+      if (token) {
+        return { authorized: true };
+      } else {
+        return { authorized: false };
+      }
+    });
+  },
+  'show-settings': function (t) {
+    console.log("Opening Power-Up settings");
     return t.popup({
       title: "Cài đặt Power-Up",
-      url: t.signUrl("https://test268.vercel.app/public/settings.html"), // 🔥 Thêm t.signUrl
+      url: "https://test268.vercel.app/index.html",
       height: 184
     });
   }
-});
-
-  'authorization-status': function(t, options){
-    return t.get('member', 'private', 'authToken')
-      .then(function(token){
-        if (!token) {
-          return { authorized: false };
-        }
-        return fetch(`https://test268.vercel.app/authorization-status?token=${token}`)
-          .then(res => res.json())
-          .then(data => ({ authorized: data.authorized }))
-          .catch(() => ({ authorized: false }));
-      });
-  }
+}, {
+  appKey: "3eb15437bed89d6ea2f9155cfdf684a8", 
+  oauthSecret: "8750d2e257fb42fbcfdd4a27709a45705fac0987316e78c36b2b33b4d63e4aa5"
 });
