@@ -36,3 +36,12 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+window.TrelloPowerUp.initialize({
+  'show-settings': function(t, options){
+    return t.popup({
+      title: "Cài đặt Power-Up",
+      url: "https://test268.vercel.app/index.html",
+      height: 184
+    });
+  }
+});
