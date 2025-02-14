@@ -1,5 +1,5 @@
 {
-  "capabilities": ["board-buttons"],
+  "capabilities": ["board-buttons", "authorization-status"],
   "icon": "https://i.imgur.com/Qq6RV99.jpeg",
   "author": "Trần Thanh Tùng",
   "name": "My First Custom Power-Up",
@@ -13,7 +13,7 @@
       "oauthVersion": 1,
       "requestTokenURL": "https://trello.com/1/OAuthGetRequestToken",
       "accessTokenURL": "https://trello.com/1/OAuthGetAccessToken",
-      "authorizeURL": "https://trello.com/1/OAuthAuthorizeToken?scope=read,write"
+      "authorizeURL": "https://trello.com/1/OAuthAuthorizeToken?scope=read,write&expiration=never&name=MyPowerUp"
     }
   }
 }
